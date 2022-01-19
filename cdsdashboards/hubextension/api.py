@@ -131,6 +131,7 @@ class UserSelfAPIHandler(DashboardBaseAPIHandler):
         current_user = await self.get_current_user()
         model = self.user_model(current_user)
 
+        cdsconfig = CDSConfigStore.get_instance(self.settings['config'])
         if cdsconfig.include_auth_state:
             model["auth_state"] = await current_user.get_auth_state()
 
