@@ -129,14 +129,7 @@ class UserSelfAPIHandler(DashboardBaseAPIHandler):
         """Return the current user."""
 
         current_user = await self.get_current_user()
-
-        cdsconfig = CDSConfigStore.get_instance(self.settings['config'])
-
-        model = self.user_model(
-            current_user,
-            include_servers=cdsconfig.include_servers,
-            include_state=cdsconfig.include_servers_state
-        )
+        model = self.user_model(current_user)
 
         if cdsconfig.include_auth_state:
             model["auth_state"] = await current_user.get_auth_state()
